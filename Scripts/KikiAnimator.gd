@@ -26,9 +26,9 @@ func keyPress(string):
 			pass;
 		false:
 			if(string == "UpDance"):
-				var rand = Global.rng.randi_range(0, 1);
-				if rand == 0: animation = "UpDance";
-				else: animation = "UpDance2";
+				match Global.rng.randi_range(0,1):
+					0: animation = "UpDance";
+					1: animation = "UpDance2";
 			else:
 				animation = string;
 				play();

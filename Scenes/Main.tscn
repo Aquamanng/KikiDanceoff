@@ -116,7 +116,7 @@ position = Vector2( 418, 60 )
 input_direction = "up"
 
 [node name="DownArrow" parent="." instance=ExtResource( 4 )]
-position = Vector2( 256, 62 )
+position = Vector2( 256, 60 )
 input_direction = "down"
 
 [node name="RightArrow" parent="." instance=ExtResource( 4 )]

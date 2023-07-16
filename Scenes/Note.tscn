@@ -3,8 +3,8 @@
 [ext_resource path="res://Scripts/Note.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Arrows/ArrowFrames.tres" type="SpriteFrames" id=2]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 35.0
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 49.5, 49.5 )
 
 [node name="Note" type="Area2D"]
 script = ExtResource( 1 )

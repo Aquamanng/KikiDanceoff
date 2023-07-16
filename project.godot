@@ -17,6 +17,7 @@ config/icon="res://Sprites/icon.png"
 [autoload]
 
 Global="*res://Scripts/Global.gd"
+BeatManager="*res://Scripts/BeatManager.gd"
 
 [display]
 

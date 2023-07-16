@@ -26,8 +26,10 @@ func _process(_delta):
 
 func spawn_note():
 	var spawned_note = note_scene.instance()
+	Global.noteArr.append(spawned_note)
+	var i = Global.noteArr.find(spawned_note)
 	add_child(spawned_note)
-	spawned_note.initialize_note()
+	spawned_note.initialize_note(i)
 	
 	beat_index += 1
 	if beat_index >= len(beat_markers):

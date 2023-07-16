@@ -10,6 +10,7 @@ onready var rng = RandomNumberGenerator.new()
 var note_in_arrow : bool = false
 # for the final meow note at the end :D
 var nya_mode : bool = false
+var noteArr : Array = []
 
 func _ready():
 	rng.randomize()
