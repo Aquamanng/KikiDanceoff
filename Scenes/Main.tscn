@@ -1,0 +1,225 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://Sprites/Intro/SpriteFrames_Intro.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://Scripts/IntroScene.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/Main/background.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/ArrowButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/GameManager.gd" type="Script" id=5]
+[ext_resource path="res://Sprites/Main/hitboxes.png" type="Texture" id=6]
+[ext_resource path="res://Sounds/HauntingDDR.mp3" type="AudioStream" id=7]
+[ext_resource path="res://Scenes/Note.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scripts/BeatManager.gd" type="Script" id=9]
+[ext_resource path="res://Scripts/KikiAnimator.gd" type="Script" id=10]
+[ext_resource path="res://Sprites/Kiki/KikiFrames.tres" type="SpriteFrames" id=11]
+[ext_resource path="res://Fonts/Fontstuck (Classic Homestuck font).ttf" type="DynamicFontData" id=12]
+[ext_resource path="res://RetryNormal.tres" type="StyleBox" id=13]
+[ext_resource path="res://RetryPressed.tres" type="StyleBox" id=14]
+[ext_resource path="res://RetryHover.tres" type="StyleBox" id=15]
+[ext_resource path="res://Sprites/garfunkel.png" type="Texture" id=16]
+
+[sub_resource type="DynamicFont" id=4]
+size = 24
+font_data = ExtResource( 12 )
+
+[sub_resource type="Theme" id=1]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 24
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 24
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=7]
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 14
+extra_spacing_space = 5
+font_data = ExtResource( 12 )
+
+[node name="Main" type="Node"]
+script = ExtResource( 5 )
+enable_debug = true
+
+[node name="EndTimer" type="Timer" parent="."]
+wait_time = 49.0
+one_shot = true
+
+[node name="MeowTimer" type="Timer" parent="."]
+wait_time = 44.5
+one_shot = true
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 325, 225 )
+texture = ExtResource( 3 )
+
+[node name="Kiki" type="AnimatedSprite" parent="."]
+position = Vector2( 343, 222 )
+frames = ExtResource( 11 )
+animation = "LeftDance"
+script = ExtResource( 10 )
+
+[node name="HitboxOverlay" type="Sprite" parent="."]
+position = Vector2( 337, 60 )
+texture = ExtResource( 6 )
+
+[node name="ScoreLabel" type="RichTextLabel" parent="."]
+margin_left = 3.0
+margin_top = 375.0
+margin_right = 325.0
+margin_bottom = 407.0
+custom_colors/default_color = Color( 1, 0.607843, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+text = "SCORE:"
+
+[node name="ComboLabel" type="RichTextLabel" parent="."]
+margin_left = 3.0
+margin_top = 414.0
+margin_right = 269.0
+margin_bottom = 447.0
+custom_colors/default_color = Color( 1, 0.607843, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+text = "COMBO:"
+
+[node name="_BEATMANAGER" type="Node" parent="."]
+script = ExtResource( 9 )
+beat_markers = [ 3.01, 5.51, 5.68, 8.02, 8.34, 9.1, 9.34, 10.05, 10.29, 10.74, 11.01, 11.67, 12.43, 12.69, 13.02, 13.69, 14.35, 15.02, 15.68, 16.02, 16.35, 16.7, 17.02, 17.35, 17.7, 18.0, 18.36, 19.0, 19.36, 19.7, 19.9, 20.03, 20.35, 20.68, 21.01, 21.21, 21.35, 21.69, 22.02, 22.36, 22.68, 23.02, 23.34, 23.69, 24.02, 24.36, 24.54, 24.68, 25.02, 25.35, 25.56, 25.69, 26.02, 26.35, 26.68, 27.02, 27.34, 27.68, 28.02, 28.35, 28.68, 29.01, 29.35, 29.69, 29.86, 30.02, 30.35, 30.84, 31.02, 31.2, 31.35, 31.68, 32.01, 32.35, 32.68, 33.01, 33.34, 33.68, 34.02, 34.31, 34.68, 35.02, 35.23, 35.36, 35.68, 36.02, 36.35, 36.52, 36.68, 37.01, 37.36, 37.68, 37.85, 38.02, 38.35, 38.68, 38.86, 39.0, 39.35, 39.69, 39.87, 40.0, 41.34, 41.52, 41.68, 44.7 ]
+note_scene = ExtResource( 8 )
+
+[node name="IntroScene" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 325, 225 )
+frames = ExtResource( 1 )
+animation = "Intro1"
+script = ExtResource( 2 )
+
+[node name="ToGameTimer" type="Timer" parent="IntroScene"]
+wait_time = 6.0
+one_shot = true
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="LeftArrow" parent="." instance=ExtResource( 4 )]
+position = Vector2( 100, 60 )
+input_direction = "left"
+
+[node name="UpArrow" parent="." instance=ExtResource( 4 )]
+position = Vector2( 256, 60 )
+input_direction = "up"
+
+[node name="DownArrow" parent="." instance=ExtResource( 4 )]
+position = Vector2( 418, 60 )
+input_direction = "down"
+
+[node name="RightArrow" parent="." instance=ExtResource( 4 )]
+position = Vector2( 574, 60 )
+input_direction = "right"
+
+[node name="ScoreScreen" type="Node2D" parent="."]
+
+[node name="ScoreBG" type="Sprite" parent="ScoreScreen"]
+
+[node name="Panel" type="Panel" parent="ScoreScreen/ScoreBG"]
+margin_right = 650.0
+margin_bottom = 450.0
+mouse_filter = 2
+theme = SubResource( 1 )
+custom_styles/panel = SubResource( 2 )
+
+[node name="CongratsText" type="RichTextLabel" parent="ScoreScreen/ScoreBG"]
+margin_left = 15.0
+margin_top = 10.0
+margin_right = 665.0
+margin_bottom = 185.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 3 )
+text = "NICE  MOVES,  DANCE  CHAMP!!!!!
+LET'S  SEE  THE  FINAL  RESULTS!"
+
+[node name="Score" type="RichTextLabel" parent="ScoreScreen/ScoreBG"]
+margin_left = 15.0
+margin_top = 139.0
+margin_right = 394.0
+margin_bottom = 171.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 5 )
+text = "TOTAL SCORE: 10500"
+
+[node name="Combo" type="RichTextLabel" parent="ScoreScreen/ScoreBG"]
+margin_left = 15.0
+margin_top = 171.0
+margin_right = 458.0
+margin_bottom = 202.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+text = "MAXIMUM COMBO: 105"
+
+[node name="Accuracy" type="RichTextLabel" parent="ScoreScreen/ScoreBG"]
+margin_left = 15.0
+margin_top = 203.0
+margin_right = 458.0
+margin_bottom = 234.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+text = "ACCURACY: 100/100"
+
+[node name="Garfunkel" type="Sprite" parent="ScoreScreen"]
+position = Vector2( 501.806, 333.25 )
+scale = Vector2( 0.65864, 0.65864 )
+texture = ExtResource( 16 )
+
+[node name="RetryButton" type="Button" parent="ScoreScreen"]
+margin_left = 5.0
+margin_top = 389.0
+margin_right = 210.0
+margin_bottom = 444.0
+custom_fonts/font = SubResource( 7 )
+custom_styles/hover = ExtResource( 15 )
+custom_styles/pressed = ExtResource( 14 )
+custom_styles/normal = ExtResource( 13 )
+text = "RETRY!"
+
+[node name="StartScreen" type="Node2D" parent="."]
+visible = false
+
+[node name="StartBG" type="AnimatedSprite" parent="StartScreen"]
+position = Vector2( 325, 225 )
+frames = ExtResource( 1 )
+animation = "Intro1"
+
+[node name="PlayButton" type="Button" parent="StartScreen"]
+margin_left = 6.0
+margin_top = 7.0
+margin_right = 211.0
+margin_bottom = 62.0
+custom_fonts/font = SubResource( 7 )
+custom_styles/hover = ExtResource( 15 )
+custom_styles/pressed = ExtResource( 14 )
+custom_styles/normal = ExtResource( 13 )
+text = "PLAY!"
+
+[node name="CreditsText" type="RichTextLabel" parent="StartScreen"]
+margin_left = 217.0
+margin_top = 2.0
+margin_right = 650.0
+margin_bottom = 51.0
+custom_colors/default_color = Color( 1, 0.494118, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 9 )
+text = "GODOT MINIGAME CREATED BY AQUA
+MUSIC COMPOSED BY JULIANMOCS"
+
+[connection signal="timeout" from="EndTimer" to="." method="_on_EndTimer_timeout"]
+[connection signal="timeout" from="MeowTimer" to="." method="_on_MeowTimer_timeout"]
+[connection signal="animation_finished" from="IntroScene" to="IntroScene" method="_on_IntroScene_animation_finished"]
+[connection signal="timeout" from="IntroScene/ToGameTimer" to="IntroScene" method="_on_ToGameTimer_timeout"]
+[connection signal="pressed" from="ScoreScreen/RetryButton" to="." method="_on_RetryButton_pressed"]
+[connection signal="pressed" from="StartScreen/PlayButton" to="." method="_on_PlayButton_pressed"]

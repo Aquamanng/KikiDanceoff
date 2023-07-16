@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Note.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/TrackManager.gd" type="Script" id=2]
+
+[node name="TrackRoot" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Note" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 72 )
+
+[node name="Note2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 72 )
+note_direction = 3

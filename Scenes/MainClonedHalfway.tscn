@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Sprites/Intro/SpriteFrames_Intro.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://Scripts/IntroScene.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/Main/background.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/ArrowButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/GameManager.gd" type="Script" id=5]
+[ext_resource path="res://Sprites/Main/hitboxes.png" type="Texture" id=6]
+[ext_resource path="res://Sounds/HauntingDDR.mp3" type="AudioStream" id=7]
+[ext_resource path="res://Scenes/Note.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scripts/BeatManager.gd" type="Script" id=9]
+
+[node name="Main" type="Node"]
+script = ExtResource( 5 )
+
+[node name="_SPRITES" type="Node" parent="."]
+
+[node name="Background" type="Sprite" parent="_SPRITES"]
+position = Vector2( 325, 225 )
+texture = ExtResource( 3 )
+
+[node name="HitboxOverlay" type="Sprite" parent="_SPRITES"]
+position = Vector2( 337, 60 )
+texture = ExtResource( 6 )
+
+[node name="_BEATMANAGER" type="Node" parent="."]
+script = ExtResource( 9 )
+beat_markers = [ 3.01, 5.51, 5.68, 8.02, 8.34, 9.1, 9.34, 10.05, 10.29, 10.74, 11.01, 11.67, 12.43, 12.69, 13.02, 13.69, 14.35, 15.02, 15.68, 16.02, 16.35, 16.7, 17.02, 17.35, 17.7, 18.0, 18.36, 19.0, 19.36, 19.7, 19.9, 20.03, 20.35, 20.68, 21.01, 21.21, 21.35, 21.69, 22.02, 22.36, 22.68, 23.02, 23.34, 23.69, 24.02, 24.36, 24.54, 24.68, 25.02, 25.35, 25.56, 25.69, 26.02, 26.35, 26.68, 27.02, 27.34, 27.68, 28.02, 28.35, 28.68, 29.01, 29.35, 29.69, 29.86, 30.02, 30.35, 30.84, 31.02, 31.2, 31.35, 31.68, 32.01, 32.35, 32.68, 33.01, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
+note_scene = ExtResource( 8 )
+
+[node name="IntroScene" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 325, 225 )
+frames = ExtResource( 1 )
+animation = "Intro2"
+script = ExtResource( 2 )
+
+[node name="ToGameTimer" type="Timer" parent="IntroScene"]
+wait_time = 6.0
+one_shot = true
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="LeftArrow" parent="." instance=ExtResource( 4 )]
+position = Vector2( 100, 60 )
+input_direction = "left"
+
+[node name="UpArrow" parent="." instance=ExtResource( 4 )]
+position = Vector2( 256, 60 )
+input_direction = "up"
+
+[node name="DownArrow" parent="." instance=ExtResource( 4 )]
+position = Vector2( 418, 60 )
+input_direction = "down"
+
+[node name="RightArrow" parent="." instance=ExtResource( 4 )]
+position = Vector2( 574, 60 )
+input_direction = "right"
+
+[connection signal="animation_finished" from="IntroScene" to="IntroScene" method="_on_IntroScene_animation_finished"]
+[connection signal="timeout" from="IntroScene/ToGameTimer" to="IntroScene" method="_on_ToGameTimer_timeout"]
