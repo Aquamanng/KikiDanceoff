@@ -173,7 +173,7 @@ custom_fonts/normal_font = SubResource( 4 )
 text = "ACCURACY: 100/100"
 
 [node name="Garfunkel" type="Sprite" parent="ScoreScreen"]
-position = Vector2( 501.806, 333.25 )
+position = Vector2( 501.806, 334.25 )
 scale = Vector2( 0.65864, 0.65864 )
 texture = ExtResource( 16 )
 
