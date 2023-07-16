@@ -105,17 +105,18 @@ one_shot = true
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+volume_db = -28.141
 
 [node name="LeftArrow" parent="." instance=ExtResource( 4 )]
 position = Vector2( 100, 60 )
 input_direction = "left"
 
 [node name="UpArrow" parent="." instance=ExtResource( 4 )]
-position = Vector2( 256, 60 )
+position = Vector2( 418, 60 )
 input_direction = "up"
 
 [node name="DownArrow" parent="." instance=ExtResource( 4 )]
-position = Vector2( 418, 60 )
+position = Vector2( 256, 62 )
 input_direction = "down"
 
 [node name="RightArrow" parent="." instance=ExtResource( 4 )]
