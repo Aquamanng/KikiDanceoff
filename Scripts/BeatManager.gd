@@ -6,6 +6,8 @@ onready var manager = get_parent()
 # for note timing. have it so certain label names determine the lane that they spawn in.
 # all for random, left/right/up/down for granular pre-defined lane spawns
 export(Array, float) var beat_markers
+# For tracking values in each song.
+export (Array, int) var score_values
 var beat_index : int = 0
 
 export var note_scene : PackedScene

@@ -1,7 +1,13 @@
 extends Node
 
 # so i dont need to toggle a bunch of methods all the time lol
+# allows me to INSTANTLY load into a song from the retry button on scorescreen
+# or the start button on the startmenu and skip the lengthy intro
+# might just become an option in the future in the settings menu?? idk yet
 export var enable_debug : bool = false
+# this will skip to the results screen with randomized score values
+# for results testing or testing replaying or whatever the fuck
+export var skip_to_results : bool = false
 
 onready var beat_manager = $_BEATMANAGER
 onready var music_player = $MusicPlayer
@@ -13,8 +19,10 @@ var cur_combo : int = 0
 var max_combo : int = 0
 
 # for accuracy calc
-var missed_notes : int = 0
 var hit_notes : int = 0
+# will need to have this calculated automatically via beatmanager when it loads in a song trackfile
+var total_notes : int = 106
+var missed_notes : int = 0
 
 # timekeeping to ensure audio and gameplay is synced
 var soundplay_delay
@@ -81,8 +89,10 @@ func end_game():
 	$ScoreScreen.visible = true
 	$ScoreScreen/ScoreBG/Score.text = "FINAL SCORE: " + str(total_score)
 	$ScoreScreen/ScoreBG/Combo.text = "MAXIMUM COMBO: " + str(max_combo)
-#	var accuracy = (hit_notes / missed_notes) * 100
-#	$ScoreScreen/ScoreBG/Accuracy.text = "ACCURACY: " + str(int(accuracy)) + "/100"
+	$ScoreScreen/ScoreBG/NotesHit.text = "NOTES HIT: " + str(hit_notes)
+	$ScoreScreen/ScoreBG/MissedNotes.text = "MISSED NOTES: " + str(missed_notes)
+	var accuracy = (float(hit_notes) / float(total_notes)) * 100
+	$ScoreScreen/ScoreBG/Accuracy.text = "ACCURACY: " + str(int(accuracy)) + "/100"
 
 func _on_RetryButton_pressed():
 	$_BEATMANAGER.beat_index = 0
@@ -95,6 +105,11 @@ func _on_RetryButton_pressed():
 		$IntroScene.play_intro()
 		$ScoreScreen.visible = false
 	else:
+		if skip_to_results:
+			hit_notes = Global.rng.randi_range(1, 100)
+			missed_notes = Global.rng.randi_range(1, 20)
+			end_game()
+			return
 		$ScoreScreen.visible = false
 		start_game()
 
@@ -106,6 +121,11 @@ func _on_PlayButton_pressed():
 		$IntroScene.play_intro()
 		$StartScreen.visible = false
 	else:
+		if skip_to_results:
+			hit_notes = Global.rng.randi_range(1, 100)
+			missed_notes = Global.rng.randi_range(1, 20)
+			end_game()
+			return
 		$StartScreen.visible = false
 		start_game()
 
