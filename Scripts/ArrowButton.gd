@@ -23,7 +23,7 @@ func _on_ArrowButton_area_entered(area):
 
 func _on_ArrowButton_area_exited(area):
 	if area == cur_note:
-		get_parent().decrease_score(1)
+		get_parent().decrease_score(2)
 		
 	cur_note = null
 	Global.note_in_arrow = false

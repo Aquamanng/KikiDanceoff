@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Sprites/Intro/SpriteFrames_Intro.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://Scripts/IntroScene.gd" type="Script" id=2]
@@ -16,6 +16,8 @@
 [ext_resource path="res://RetryPressed.tres" type="StyleBox" id=14]
 [ext_resource path="res://RetryHover.tres" type="StyleBox" id=15]
 [ext_resource path="res://Sprites/garfunkel.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/KikiCelebrate.png" type="Texture" id=17]
+[ext_resource path="res://Sprites/GarfunkleBubble.png" type="Texture" id=18]
 
 [sub_resource type="DynamicFont" id=4]
 size = 24
@@ -26,15 +28,22 @@ font_data = ExtResource( 12 )
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 1, 1, 1, 1 )
 
+[sub_resource type="DynamicFont" id=10]
+size = 32
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=11]
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=7]
+font_data = ExtResource( 12 )
+
 [sub_resource type="DynamicFont" id=3]
 size = 24
 font_data = ExtResource( 12 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 24
-font_data = ExtResource( 12 )
-
-[sub_resource type="DynamicFont" id=7]
 font_data = ExtResource( 12 )
 
 [sub_resource type="DynamicFont" id=9]
@@ -90,6 +99,7 @@ text = "COMBO:"
 [node name="_BEATMANAGER" type="Node" parent="."]
 script = ExtResource( 9 )
 beat_markers = [ 3.01, 5.51, 5.68, 8.02, 8.34, 9.1, 9.34, 10.05, 10.29, 10.74, 11.01, 11.67, 12.43, 12.69, 13.02, 13.69, 14.35, 15.02, 15.68, 16.02, 16.35, 16.7, 17.02, 17.35, 17.7, 18.0, 18.36, 19.0, 19.36, 19.7, 19.9, 20.03, 20.35, 20.68, 21.01, 21.21, 21.35, 21.69, 22.02, 22.36, 22.68, 23.02, 23.34, 23.69, 24.02, 24.36, 24.54, 24.68, 25.02, 25.35, 25.56, 25.69, 26.02, 26.35, 26.68, 27.02, 27.34, 27.68, 28.02, 28.35, 28.68, 29.01, 29.35, 29.69, 29.86, 30.02, 30.35, 30.84, 31.02, 31.2, 31.35, 31.68, 32.01, 32.35, 32.68, 33.01, 33.34, 33.68, 34.02, 34.31, 34.68, 35.02, 35.23, 35.36, 35.68, 36.02, 36.35, 36.52, 36.68, 37.01, 37.36, 37.68, 37.85, 38.02, 38.35, 38.68, 38.86, 39.0, 39.35, 39.69, 39.87, 40.0, 41.34, 41.52, 41.68, 44.7 ]
+score_values = [ 500, 1500, 4000, 7000, 9000, 10600 ]
 note_scene = ExtResource( 8 )
 
 [node name="IntroScene" type="AnimatedSprite" parent="."]
@@ -123,8 +133,62 @@ input_direction = "down"
 position = Vector2( 574, 60 )
 input_direction = "right"
 
-[node name="ScoreScreen" type="Node2D" parent="."]
+[node name="JudgementScreen" type="Node2D" parent="."]
 visible = false
+
+[node name="ScoreBG" type="Sprite" parent="JudgementScreen"]
+
+[node name="Panel" type="Panel" parent="JudgementScreen/ScoreBG"]
+margin_right = 650.0
+margin_bottom = 450.0
+mouse_filter = 2
+theme = SubResource( 1 )
+custom_styles/panel = SubResource( 2 )
+
+[node name="ThoughtBubble" type="Sprite" parent="JudgementScreen/ScoreBG"]
+modulate = Color( 1, 1, 1, 0.435294 )
+position = Vector2( 314, 63 )
+scale = Vector2( 0.749759, 0.527845 )
+texture = ExtResource( 18 )
+flip_h = true
+
+[node name="FinalGrade" type="RichTextLabel" parent="JudgementScreen/ScoreBG"]
+margin_left = 15.0
+margin_top = 18.0
+margin_right = 665.0
+margin_bottom = 58.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 0.537255, 0, 1 )
+custom_fonts/normal_font = SubResource( 10 )
+text = "YOUR FINAL GRADE: P+"
+
+[node name="GradeRemark" type="RichTextLabel" parent="JudgementScreen/ScoreBG"]
+margin_left = 9.0
+margin_top = 74.0
+margin_right = 644.0
+margin_bottom = 114.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0.545098, 1, 1 )
+custom_fonts/normal_font = SubResource( 11 )
+text = "NO NEED TO BE A SHOWOFF, HOT DAMN!!"
+
+[node name="Garfunkel" type="Sprite" parent="JudgementScreen"]
+position = Vector2( 501.806, 333.25 )
+scale = Vector2( 0.65864, 0.65864 )
+texture = ExtResource( 16 )
+
+[node name="RetryButton" type="Button" parent="JudgementScreen"]
+margin_left = 5.0
+margin_top = 389.0
+margin_right = 210.0
+margin_bottom = 444.0
+custom_fonts/font = SubResource( 7 )
+custom_styles/hover = ExtResource( 15 )
+custom_styles/pressed = ExtResource( 14 )
+custom_styles/normal = ExtResource( 13 )
+text = "RETRY!"
+
+[node name="ScoreScreen" type="Node2D" parent="."]
 
 [node name="ScoreBG" type="Sprite" parent="ScoreScreen"]
 
@@ -135,41 +199,70 @@ mouse_filter = 2
 theme = SubResource( 1 )
 custom_styles/panel = SubResource( 2 )
 
+[node name="KikiCheer" type="Sprite" parent="ScoreScreen/ScoreBG"]
+modulate = Color( 1, 1, 1, 0.168627 )
+position = Vector2( 430.945, 237.364 )
+scale = Vector2( 1.06182, 1.06182 )
+texture = ExtResource( 17 )
+
 [node name="CongratsText" type="RichTextLabel" parent="ScoreScreen/ScoreBG"]
 margin_left = 15.0
 margin_top = 10.0
 margin_right = 665.0
 margin_bottom = 185.0
 custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 0.572549, 0, 1 )
 custom_fonts/normal_font = SubResource( 3 )
 text = "NICE  MOVES,  DANCE  CHAMP!!!!!
 LET'S  SEE  THE  FINAL  RESULTS!"
 
 [node name="Score" type="RichTextLabel" parent="ScoreScreen/ScoreBG"]
 margin_left = 15.0
-margin_top = 139.0
+margin_top = 123.0
 margin_right = 394.0
-margin_bottom = 171.0
+margin_bottom = 155.0
 custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 0.572549, 0, 1 )
 custom_fonts/normal_font = SubResource( 5 )
 text = "TOTAL SCORE: 10500"
 
 [node name="Combo" type="RichTextLabel" parent="ScoreScreen/ScoreBG"]
 margin_left = 15.0
-margin_top = 171.0
+margin_top = 155.0
 margin_right = 458.0
-margin_bottom = 202.0
+margin_bottom = 186.0
 custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0.301961, 0.670588, 1, 1 )
 custom_fonts/normal_font = SubResource( 4 )
 text = "MAXIMUM COMBO: 105"
 
-[node name="Accuracy" type="RichTextLabel" parent="ScoreScreen/ScoreBG"]
-visible = false
+[node name="NotesHit" type="RichTextLabel" parent="ScoreScreen/ScoreBG"]
 margin_left = 15.0
-margin_top = 203.0
+margin_top = 211.0
 margin_right = 458.0
-margin_bottom = 234.0
+margin_bottom = 242.0
 custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0.313726, 0.815686, 0, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+text = "NOTES HIT:"
+
+[node name="MissedNotes" type="RichTextLabel" parent="ScoreScreen/ScoreBG"]
+margin_left = 15.0
+margin_top = 243.0
+margin_right = 458.0
+margin_bottom = 274.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0.886275, 0.0745098, 0.0745098, 1 )
+custom_fonts/normal_font = SubResource( 4 )
+text = "NOTES MISSED:"
+
+[node name="Accuracy" type="RichTextLabel" parent="ScoreScreen/ScoreBG"]
+margin_left = 15.0
+margin_top = 299.0
+margin_right = 458.0
+margin_bottom = 330.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 0.572549, 0, 1 )
 custom_fonts/normal_font = SubResource( 4 )
 text = "ACCURACY: 100/100"
 
@@ -189,7 +282,19 @@ custom_styles/pressed = ExtResource( 14 )
 custom_styles/normal = ExtResource( 13 )
 text = "RETRY!"
 
+[node name="GradeButton" type="Button" parent="ScoreScreen"]
+margin_left = 221.0
+margin_top = 389.0
+margin_right = 434.0
+margin_bottom = 444.0
+custom_fonts/font = SubResource( 7 )
+custom_styles/hover = ExtResource( 15 )
+custom_styles/pressed = ExtResource( 14 )
+custom_styles/normal = ExtResource( 13 )
+text = "FINAL  GRADE!"
+
 [node name="StartScreen" type="Node2D" parent="."]
+visible = false
 
 [node name="StartBG" type="AnimatedSprite" parent="StartScreen"]
 position = Vector2( 325, 225 )
@@ -222,5 +327,7 @@ MUSIC COMPOSED BY JULIANMOCS"
 [connection signal="timeout" from="MeowTimer" to="." method="_on_MeowTimer_timeout"]
 [connection signal="animation_finished" from="IntroScene" to="IntroScene" method="_on_IntroScene_animation_finished"]
 [connection signal="timeout" from="IntroScene/ToGameTimer" to="IntroScene" method="_on_ToGameTimer_timeout"]
+[connection signal="pressed" from="JudgementScreen/RetryButton" to="." method="_on_RetryButton_pressed"]
 [connection signal="pressed" from="ScoreScreen/RetryButton" to="." method="_on_RetryButton_pressed"]
+[connection signal="pressed" from="ScoreScreen/GradeButton" to="." method="_on_GradeButton_pressed"]
 [connection signal="pressed" from="StartScreen/PlayButton" to="." method="_on_PlayButton_pressed"]
