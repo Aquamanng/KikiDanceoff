@@ -115,17 +115,18 @@ one_shot = true
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+volume_db = -28.141
 
 [node name="LeftArrow" parent="." instance=ExtResource( 4 )]
 position = Vector2( 100, 60 )
 input_direction = "left"
 
 [node name="UpArrow" parent="." instance=ExtResource( 4 )]
-position = Vector2( 256, 60 )
+position = Vector2( 418, 60 )
 input_direction = "up"
 
 [node name="DownArrow" parent="." instance=ExtResource( 4 )]
-position = Vector2( 418, 60 )
+position = Vector2( 256, 62 )
 input_direction = "down"
 
 [node name="RightArrow" parent="." instance=ExtResource( 4 )]
@@ -264,6 +265,11 @@ custom_colors/default_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 1, 0.572549, 0, 1 )
 custom_fonts/normal_font = SubResource( 4 )
 text = "ACCURACY: 100/100"
+
+[node name="Garfunkel" type="Sprite" parent="ScoreScreen"]
+position = Vector2( 501.806, 334.25 )
+scale = Vector2( 0.65864, 0.65864 )
+texture = ExtResource( 16 )
 
 [node name="RetryButton" type="Button" parent="ScoreScreen"]
 margin_left = 5.0

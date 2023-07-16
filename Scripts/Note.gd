@@ -1,6 +1,6 @@
 extends Area2D
 
-enum DIRECTION { LEFT, UP, DOWN, RIGHT }
+enum DIRECTION { LEFT, DOWN, UP, RIGHT }
 export(DIRECTION) var note_direction
 var note_sprite : AnimatedSprite
 onready var track_manager = get_parent()
@@ -25,9 +25,9 @@ func initialize_note():
 		0:
 			note_direction = DIRECTION.LEFT
 		1:
-			note_direction = DIRECTION.UP
-		2:
 			note_direction = DIRECTION.DOWN
+		2:
+			note_direction = DIRECTION.UP
 		3:
 			note_direction = DIRECTION.RIGHT
 		_:
@@ -37,10 +37,10 @@ func initialize_note():
 		DIRECTION.LEFT:
 			position.x = 100
 			note_sprite.frame = 0
-		DIRECTION.UP:
+		DIRECTION.DOWN:
 			position.x = 256
 			note_sprite.frame = 1
-		DIRECTION.DOWN:
+		DIRECTION.UP:
 			position.x = 418
 			note_sprite.frame = 2
 		DIRECTION.RIGHT:
