@@ -266,11 +266,6 @@ custom_colors/font_color_shadow = Color( 1, 0.572549, 0, 1 )
 custom_fonts/normal_font = SubResource( 4 )
 text = "ACCURACY: 100/100"
 
-[node name="Garfunkel" type="Sprite" parent="ScoreScreen"]
-position = Vector2( 501.806, 334.25 )
-scale = Vector2( 0.65864, 0.65864 )
-texture = ExtResource( 16 )
-
 [node name="RetryButton" type="Button" parent="ScoreScreen"]
 margin_left = 5.0
 margin_top = 389.0
