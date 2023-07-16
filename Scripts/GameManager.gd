@@ -29,12 +29,14 @@ var soundplay_delay
 
 
 func start_game():
+	reset_score_values()
 	combo_label.text = "COMBO: " + str(cur_combo)
 	score_label.text = "SCORE: " + str(total_score)
 	$Kiki.set_process(true)
 	soundplay_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
 	soundplay_delay -= AudioServer.get_output_latency()
 	music_player.play()
+	# Wait by soundplayDelay amount to ensure that audio/gameplay sync is calculated correctly
 	yield(get_tree().create_timer(soundplay_delay), "timeout")
 	beat_manager.activate()
 	$EndTimer.start()
@@ -100,35 +102,72 @@ func _on_RetryButton_pressed():
 	$Kiki.animation = "LeftDance"
 	Global.nya_mode = false
 	reset_score_values()
-	if !enable_debug:
+	if !debug_check():
 		$IntroScene.visible = true
 		$IntroScene.play_intro()
 		$ScoreScreen.visible = false
 	else:
-		if skip_to_results:
-			hit_notes = Global.rng.randi_range(1, 100)
-			missed_notes = Global.rng.randi_range(1, 20)
-			end_game()
-			return
-		$ScoreScreen.visible = false
-		start_game()
+		pass
 
 func _on_PlayButton_pressed():
 	Global.nya_mode = false
 	reset_score_values()
-	if !enable_debug:
+	if !debug_check():
 		$IntroScene.visible = true
 		$IntroScene.play_intro()
 		$StartScreen.visible = false
 	else:
+		pass
+
+func debug_check() -> bool:
+	if enable_debug:
 		if skip_to_results:
+			# Skip all the way to endGame if we just want to test the results screen or replaying.
 			hit_notes = Global.rng.randi_range(1, 100)
 			missed_notes = Global.rng.randi_range(1, 20)
+			total_score = Global.rng.randi_range(100, beat_manager.score_values[5])
+			$ScoreScreen.visible = true
 			end_game()
-			return
+			return true
+		# Hide all other screens except for the main game scene (which is always visible behind everything else)
+		# and start the game. startGame already resets all values so we're good on that front
 		$StartScreen.visible = false
+		$ScoreScreen.visible = false
+		$JudgementScreen.visible = false
 		start_game()
-
+		return true
+	else:
+		return false
 
 func _on_MeowTimer_timeout():
 	Global.nya_mode = true
+
+func _on_GradeButton_pressed():
+	# THY END IS NOW!!!
+	$JudgementScreen.visible = true
+	$ScoreScreen.visible = false
+	# I'm hardcoding the text change stuff mostly just for test purposes
+	# (also im a bit lazy!)
+	# also something to note is that an elif change won't work because the >= operator will just screw over score checks
+	# since it'll just stop at like, the second elif since total_score at that point will ALWAYS be higher or equal to scoreValues element 1
+	# so here's a bunch of if statements! yippee!
+	# maybe i can change this in the future lol this is NOT the best way of going about this
+	if total_score <= beat_manager.score_values[0] or total_score < beat_manager.score_values[1]:
+		$JudgementScreen/ScoreBG/FinalGrade.text = "FINAL GRADE:  F--"
+		$JudgementScreen/ScoreBG/GradeRemark.text = "TRY ACTUALLY PLAYING THE GAME, NUMBNUTS!"
+	if total_score >= beat_manager.score_values[1]:
+		$JudgementScreen/ScoreBG/FinalGrade.text = "FINAL GRADE:  D-"
+		$JudgementScreen/ScoreBG/GradeRemark.text = "YOUR GROOVE AIN'T SLICK ENOUGH, BUDDY!!"
+	if total_score >= beat_manager.score_values[2]:
+		$JudgementScreen/ScoreBG/FinalGrade.text = "FINAL GRADE:  C"
+		$JudgementScreen/ScoreBG/GradeRemark.text = "YOU GOT THE SPIRIT IN YOU AT LEAST!"
+	if total_score >= beat_manager.score_values[3]:
+		$JudgementScreen/ScoreBG/FinalGrade.text = "FINAL GRADE:  B+"
+		$JudgementScreen/ScoreBG/GradeRemark.text = "NOW YOU GOT SOME BOOGEY FEVER IN YOU!!"
+	if total_score >= beat_manager.score_values[4]:
+		$JudgementScreen/ScoreBG/FinalGrade.text = "FINAL GRADE: A++"
+		$JudgementScreen/ScoreBG/GradeRemark.text = "NOW THAT'S WHAT I CALL GROOVY!!"
+	if total_score >= beat_manager.score_values[5]:
+		$JudgementScreen/ScoreBG/FinalGrade.text = "FINAL GRADE:  P+"
+		$JudgementScreen/ScoreBG/GradeRemark.text = "NO NEED TO BE A SHOWOFF, HOT DAMN!!"
+	

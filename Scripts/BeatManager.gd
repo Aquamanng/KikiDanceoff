@@ -6,7 +6,14 @@ onready var manager = get_parent()
 # for note timing. have it so certain label names determine the lane that they spawn in.
 # all for random, left/right/up/down for granular pre-defined lane spawns
 export(Array, float) var beat_markers
-# For tracking values in each song.
+# For tracking total possible score values in each song; 6 possible entries:
+# Element 0 is Perfect score (P+)
+# Element 1 is A+ score
+# Element 2 is B+ score
+# Element 3 is C score
+# Element 4 is D- score
+# Element 5 is F-- score
+# any additional elements are ignored lol
 export (Array, int) var score_values
 var beat_index : int = 0
 
