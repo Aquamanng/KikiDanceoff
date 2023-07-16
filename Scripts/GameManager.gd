@@ -81,8 +81,8 @@ func end_game():
 	$ScoreScreen.visible = true
 	$ScoreScreen/ScoreBG/Score.text = "FINAL SCORE: " + str(total_score)
 	$ScoreScreen/ScoreBG/Combo.text = "MAXIMUM COMBO: " + str(max_combo)
-	var accuracy = (hit_notes / missed_notes) * 100
-	$ScoreScreen/ScoreBG/Accuracy.text = "ACCURACY: " + str(int(accuracy)) + "/100"
+#	var accuracy = (hit_notes / missed_notes) * 100
+#	$ScoreScreen/ScoreBG/Accuracy.text = "ACCURACY: " + str(int(accuracy)) + "/100"
 
 func _on_RetryButton_pressed():
 	$_BEATMANAGER.beat_index = 0

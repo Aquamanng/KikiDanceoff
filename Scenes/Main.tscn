@@ -44,7 +44,6 @@ font_data = ExtResource( 12 )
 
 [node name="Main" type="Node"]
 script = ExtResource( 5 )
-enable_debug = true
 
 [node name="EndTimer" type="Timer" parent="."]
 wait_time = 49.0
@@ -124,6 +123,7 @@ position = Vector2( 574, 60 )
 input_direction = "right"
 
 [node name="ScoreScreen" type="Node2D" parent="."]
+visible = false
 
 [node name="ScoreBG" type="Sprite" parent="ScoreScreen"]
 
@@ -163,6 +163,7 @@ custom_fonts/normal_font = SubResource( 4 )
 text = "MAXIMUM COMBO: 105"
 
 [node name="Accuracy" type="RichTextLabel" parent="ScoreScreen/ScoreBG"]
+visible = false
 margin_left = 15.0
 margin_top = 203.0
 margin_right = 458.0
@@ -188,7 +189,6 @@ custom_styles/normal = ExtResource( 13 )
 text = "RETRY!"
 
 [node name="StartScreen" type="Node2D" parent="."]
-visible = false
 
 [node name="StartBG" type="AnimatedSprite" parent="StartScreen"]
 position = Vector2( 325, 225 )
